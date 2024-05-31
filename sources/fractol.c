@@ -6,7 +6,7 @@
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:47:44 by lopoka            #+#    #+#             */
-/*   Updated: 2024/05/31 14:01:46 by lopoka           ###   ########.fr       */
+/*   Updated: 2024/05/31 14:20:24 by lopoka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -80,11 +80,22 @@ void	ft_init_stc(t_fract *stc)
 	stc->precision = 42;
 }
 
-void	ft_keyboard_hooks(mlx_key_data_t k_data, void *param)
+void	ft_keyboard_hooks(mlx_key_data_t k_data, t_fract *stc)
 {
 	(void) param;
-	if (k_data.key == MLX_KEY_J && k_data.action == MLX_PRESS)
+	if (k_data.key == MLX_KEY_ESCAPE && k_data.action == MLX_PRESS)
+	{
+		//todo free all, close
 		exit (1);
+	}
+	if (k_data.key == MLX_KEY_UP && k_data.action == MLX_PRESS)
+	{
+		stc->min_y += 0.1 * stc->zoom;
+		stc->max_y += 0.1 * stc->zoom;
+		exit (1);
+	}
+
+
 }
 
 int	main(void)
@@ -112,7 +123,7 @@ int	main(void)
 		}
 	}
 	mlx_image_to_window(stc.mlx, stc.img, 0, 0);
-	mlx_key_hook(stc.mlx, &ft_keyboard_hooks, NULL);
+	mlx_key_hook(stc.mlx, &ft_keyboard_hooks, &stc);
 	mlx_loop(stc.mlx);
 	return (0);
 }
