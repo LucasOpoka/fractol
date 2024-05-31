@@ -125,8 +125,8 @@ void	ft_scroll_hooks(double xdelta, double ydelta, void *vd)
 	t_fract	*stc;
 	int32_t	x;
 	int32_t	y;
-	double	x_mv;
-	double	y_mv;
+	double	move_x;
+	double	move_y;
 
 	(void) xdelta;
 	stc = (t_fract *)vd;
@@ -143,6 +143,7 @@ void	ft_scroll_hooks(double xdelta, double ydelta, void *vd)
 		stc->max_y = stc->max_y * 0.9 + move_y * (1 - 0.9);
 		stc->min_y = stc->min_y * 0.9 + move_y * (1 - 0.9);
 		ft_show_img(stc);
+	}
 }
 
 void	ft_show_img(t_fract *stc)
