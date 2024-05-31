@@ -12,8 +12,8 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 # include "../../MLX42/include/MLX42/MLX42.h"
-# define WIDTH	1000
-# define HEIGHT	1000
+# define WIDTH	1200
+# define HEIGHT	1200
 typedef struct s_complex
 {
 	double	r;
