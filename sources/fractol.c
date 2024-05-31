@@ -80,7 +80,7 @@ void	ft_init_stc(t_fract *stc)
 	stc->min_y = -2;
 	stc->max_y = 2;
 	stc->zoom = 1;
-	stc->precision = 42;
+	stc->precision = 100;
 }
 
 void	ft_keyboard_hooks(mlx_key_data_t k_data, void *vd)
@@ -117,7 +117,16 @@ void	ft_keyboard_hooks(mlx_key_data_t k_data, void *vd)
 		stc->max_x += 0.1 * stc->zoom;
 		ft_show_img(stc);
 	}
-
+	if (k_data.key == MLX_KEY_Q && k_data.action == MLX_PRESS)
+	{
+		stc->precision += 10;
+		ft_show_img(stc);
+	}	
+	if (k_data.key == MLX_KEY_W && k_data.action == MLX_PRESS)
+	{
+		stc->precision -= 10;
+		ft_show_img(stc);
+	}
 }
 
 void	ft_scroll_hooks(double xdelta, double ydelta, void *vd)
@@ -125,23 +134,26 @@ void	ft_scroll_hooks(double xdelta, double ydelta, void *vd)
 	t_fract	*stc;
 	int32_t	x;
 	int32_t	y;
-	double	move_x;
-	double	move_y;
+	double	x_scaled;
+	double	y_scaled;
+	double	modifier;
 
 	(void) xdelta;
 	stc = (t_fract *)vd;
 	if (ydelta != 0)
-		mlx_get_mouse_pos(stc->mlx, &x, &y);
-	if (ydelta > 0)
-		printf("Down! %d", x);
-	else if (ydelta < 0)
 	{
-		move_x = x * ((stc->max_x - stc->min_x) / WIDTH) + stc->min_x;
-		move_y = y * ((stc->max_y - stc->min_y) / HEIGHT) + stc->min_y;
-		stc->max_x = stc->max_x * 0.9 + move_x * (1 - 0.9);
-		stc->min_x = stc->min_x * 0.9 + move_x * (1 - 0.9);
-		stc->max_y = stc->max_y * 0.9 + move_y * (1 - 0.9);
-		stc->min_y = stc->min_y * 0.9 + move_y * (1 - 0.9);
+		mlx_get_mouse_pos(stc->mlx, &x, &y);
+		if (ydelta > 0)
+			modifier = 1.1;
+		else
+			modifier = 0.9;
+		stc->zoom *= modifier;
+		x_scaled = ft_map(x, stc, 1) * (1 - modifier);
+		y_scaled = ft_map(y, stc, 0) * (1 - modifier);
+		stc->max_x = stc->max_x * modifier + x_scaled;
+		stc->min_x = stc->min_x * modifier + x_scaled;
+		stc->max_y = stc->max_y * modifier + y_scaled;
+		stc->min_y = stc->min_y * modifier + y_scaled;
 		ft_show_img(stc);
 	}
 }
