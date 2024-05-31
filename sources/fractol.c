@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 #include "../includes/fractol.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 void	ft_show_img(t_fract *stc);
 
@@ -121,10 +122,12 @@ void	ft_keyboard_hooks(mlx_key_data_t k_data, void *vd)
 
 void	ft_scroll_hooks(double xdelta, double ydelta, void *vd)
 {
+	(void) xdelta;
+	(void) vd;
 	if (ydelta > 0)
-		puts("Up!");
-	else if (ydelta < 0)
 		puts("Down!");
+	else if (ydelta < 0)
+		puts("Up!");
 }
 
 void	ft_show_img(t_fract *stc)
@@ -157,7 +160,7 @@ int	main(void)
 	ft_init_stc(&stc);
 	ft_show_img(&stc);
 	mlx_key_hook(stc.mlx, &ft_keyboard_hooks, &stc);
-	mlx_scrool_hook(mlx, &ft_scroll_hooks, NULL);
+	mlx_scroll_hook(stc.mlx, &ft_scroll_hooks, NULL);
 	mlx_loop(stc.mlx);
 	return (0);
 }
