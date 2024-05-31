@@ -12,6 +12,8 @@
 #include "../includes/fractol.h"
 #include <stdlib.h>
 
+void	ft_show_img(t_fract *stc);
+
 t_complex	ft_complex_sum(t_complex n1, t_complex n2)
 {
 	t_complex	res;
@@ -54,8 +56,8 @@ void	ft_in_mandelbrot(t_fract *stc, int row, int col)
 
 	z.r = 0;
 	z.i = 0;
-	c.r = ft_map(row, stc, 0);
-	c.i = ft_map(col, stc, 1);
+	c.r = ft_map(col, stc, 1);
+	c.i = ft_map(row, stc, 0);
 
 	for (int i = 0; i < stc->precision; i++)
 	{
@@ -63,11 +65,11 @@ void	ft_in_mandelbrot(t_fract *stc, int row, int col)
 		if ((z.r * z.r + z.i * z.i) > 4)
 		{
 			color = map(i, 0x000000, 0xFFFFFF, 0, 100); // black white
-			mlx_put_pixel(stc->img, row, col, color);
+			mlx_put_pixel(stc->img, col, row, color);
 			return ;
 		}
 	}
-	mlx_put_pixel(stc->img, row, col, 0x660066); //Purple
+	mlx_put_pixel(stc->img, col, row, 0x660066); //Purple
 }
 
 void	ft_init_stc(t_fract *stc)
@@ -80,9 +82,11 @@ void	ft_init_stc(t_fract *stc)
 	stc->precision = 42;
 }
 
-void	ft_keyboard_hooks(mlx_key_data_t k_data, t_fract *stc)
+void	ft_keyboard_hooks(mlx_key_data_t k_data, void *vd)
 {
-	(void) param;
+	t_fract	*stc;
+
+	stc = (t_fract *)vd;
 	if (k_data.key == MLX_KEY_ESCAPE && k_data.action == MLX_PRESS)
 	{
 		//todo free all, close
@@ -92,10 +96,21 @@ void	ft_keyboard_hooks(mlx_key_data_t k_data, t_fract *stc)
 	{
 		stc->min_y += 0.1 * stc->zoom;
 		stc->max_y += 0.1 * stc->zoom;
-		exit (1);
+		ft_show_img(stc);
 	}
+}
 
-
+void	ft_show_img(t_fract *stc)
+{
+	
+	for (int r = 0; r < HEIGHT; r++)
+	{
+		for (int c = 0; c < WIDTH; c++)
+		{
+			ft_in_mandelbrot(stc, r, c);
+		}
+	}
+	mlx_image_to_window(stc->mlx, stc->img, 0, 0);
 }
 
 int	main(void)
@@ -112,17 +127,8 @@ int	main(void)
 		free(stc.mlx);
 		exit(1);
 	}
-
 	ft_init_stc(&stc);
-	
-	for (int r = 0; r < HEIGHT; r++)
-	{
-		for (int c = 0; c < WIDTH; c++)
-		{
-			ft_in_mandelbrot(&stc, r, c);
-		}
-	}
-	mlx_image_to_window(stc.mlx, stc.img, 0, 0);
+	ft_show_img(&stc);
 	mlx_key_hook(stc.mlx, &ft_keyboard_hooks, &stc);
 	mlx_loop(stc.mlx);
 	return (0);
