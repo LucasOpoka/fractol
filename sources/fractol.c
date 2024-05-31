@@ -6,7 +6,7 @@
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:47:44 by lopoka            #+#    #+#             */
-/*   Updated: 2024/05/31 14:20:24 by lopoka           ###   ########.fr       */
+/*   Updated: 2024/05/31 14:55:45 by lopoka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -98,6 +98,25 @@ void	ft_keyboard_hooks(mlx_key_data_t k_data, void *vd)
 		stc->max_y += 0.1 * stc->zoom;
 		ft_show_img(stc);
 	}
+	if (k_data.key == MLX_KEY_DOWN && k_data.action == MLX_PRESS)
+	{
+		stc->min_y -= 0.1 * stc->zoom;
+		stc->max_y -= 0.1 * stc->zoom;
+		ft_show_img(stc);
+	}
+	if (k_data.key == MLX_KEY_LEFT && k_data.action == MLX_PRESS)
+	{
+		stc->min_x -= 0.1 * stc->zoom;
+		stc->max_x -= 0.1 * stc->zoom;
+		ft_show_img(stc);
+	}
+	if (k_data.key == MLX_KEY_RIGHT && k_data.action == MLX_PRESS)
+	{
+		stc->min_x += 0.1 * stc->zoom;
+		stc->max_x += 0.1 * stc->zoom;
+		ft_show_img(stc);
+	}
+
 }
 
 void	ft_show_img(t_fract *stc)
