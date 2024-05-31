@@ -95,14 +95,14 @@ void	ft_keyboard_hooks(mlx_key_data_t k_data, void *vd)
 	}
 	if (k_data.key == MLX_KEY_UP && k_data.action == MLX_PRESS)
 	{
-		stc->min_y += 0.1 * stc->zoom;
-		stc->max_y += 0.1 * stc->zoom;
+		stc->min_y -= 0.1 * stc->zoom;
+		stc->max_y -= 0.1 * stc->zoom;
 		ft_show_img(stc);
 	}
 	if (k_data.key == MLX_KEY_DOWN && k_data.action == MLX_PRESS)
 	{
-		stc->min_y -= 0.1 * stc->zoom;
-		stc->max_y -= 0.1 * stc->zoom;
+		stc->min_y += 0.1 * stc->zoom;
+		stc->max_y += 0.1 * stc->zoom;
 		ft_show_img(stc);
 	}
 	if (k_data.key == MLX_KEY_LEFT && k_data.action == MLX_PRESS)
