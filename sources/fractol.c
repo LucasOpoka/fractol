@@ -6,7 +6,7 @@
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:47:44 by lopoka            #+#    #+#             */
-/*   Updated: 2024/05/31 13:00:09 by lopoka           ###   ########.fr       */
+/*   Updated: 2024/05/31 14:01:46 by lopoka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -80,6 +80,11 @@ void	ft_init_stc(t_fract *stc)
 	stc->precision = 42;
 }
 
+void	ft_keyboard_hooks(mlx_key_data_t k_data, void *param)
+{
+	if (k_data.key == MLX_KEY_J && keydata.action == MLX_PRESS)
+		exit (1);
+
 int	main(void)
 {
 	t_fract		stc;
@@ -105,6 +110,7 @@ int	main(void)
 		}
 	}
 	mlx_image_to_window(stc.mlx, stc.img, 0, 0);
+	mlx_key_hook(stc.mlx, &ft_keyboard_hooks, NULL);
 	mlx_loop(stc.mlx);
 	return (0);
 }
