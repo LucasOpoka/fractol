@@ -121,11 +121,17 @@ void	ft_keyboard_hooks(mlx_key_data_t k_data, void *vd)
 }
 
 void	ft_scroll_hooks(double xdelta, double ydelta, void *vd)
-{
+{	
+	t_fract	*stc;
+	int32_t	x;
+	int32_t	y;
+
 	(void) xdelta;
-	(void) vd;
+	stc = (t_fract *)vd;
+	if (ydelta != 0)
+		mlx_get_mouse_pos(stc->mlx, &x, &y);
 	if (ydelta > 0)
-		puts("Down!");
+		printf("Down! %d", x);
 	else if (ydelta < 0)
 		puts("Up!");
 }
@@ -160,7 +166,7 @@ int	main(void)
 	ft_init_stc(&stc);
 	ft_show_img(&stc);
 	mlx_key_hook(stc.mlx, &ft_keyboard_hooks, &stc);
-	mlx_scroll_hook(stc.mlx, &ft_scroll_hooks, NULL);
+	mlx_scroll_hook(stc.mlx, &ft_scroll_hooks, &stc);
 	mlx_loop(stc.mlx);
 	return (0);
 }
