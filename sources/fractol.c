@@ -6,7 +6,7 @@
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:47:44 by lopoka            #+#    #+#             */
-/*   Updated: 2024/05/31 15:23:03 by lopoka           ###   ########.fr       */
+/*   Updated: 2024/05/31 17:00:38 by lopoka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -125,6 +125,8 @@ void	ft_scroll_hooks(double xdelta, double ydelta, void *vd)
 	t_fract	*stc;
 	int32_t	x;
 	int32_t	y;
+	double	x_mv;
+	double	y_mv;
 
 	(void) xdelta;
 	stc = (t_fract *)vd;
@@ -133,7 +135,14 @@ void	ft_scroll_hooks(double xdelta, double ydelta, void *vd)
 	if (ydelta > 0)
 		printf("Down! %d", x);
 	else if (ydelta < 0)
-		puts("Up!");
+	{
+		move_x = x * ((stc->max_x - stc->min_x) / WIDTH) + stc->min_x;
+		move_y = y * ((stc->max_y - stc->min_y) / HEIGHT) + stc->min_y;
+		stc->max_x = stc->max_x * 0.9 + move_x * (1 - 0.9);
+		stc->min_x = stc->min_x * 0.9 + move_x * (1 - 0.9);
+		stc->max_y = stc->max_y * 0.9 + move_y * (1 - 0.9);
+		stc->min_y = stc->min_y * 0.9 + move_y * (1 - 0.9);
+		ft_show_img(stc);
 }
 
 void	ft_show_img(t_fract *stc)
