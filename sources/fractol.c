@@ -9,16 +9,8 @@
 /*   Updated: 2024/05/31 13:00:09 by lopoka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../MLX42/include/MLX42/MLX42.h"
 #include "../includes/fractol.h"
 #include <stdlib.h>
-
-typedef struct s_complex
-{
-	double	r;
-	double	i;
-}	t_complex;
 
 t_complex	ft_complex_sum(t_complex n1, t_complex n2)
 {
@@ -43,13 +35,13 @@ t_complex ft_complex_square(t_complex n)
 double ft_map(double val, t_fract *stc, int axis)
 {
 	if (!axis)
-    	return (val * (stc->max_y - stc->min_y) / HEIGTH + stc->min_y);
+    	return (val * (stc->max_y - stc->min_y) / HEIGHT + stc->min_y);
 	else	
     	return (val * (stc->max_x - stc->min_x) / WIDTH + stc->min_x);
 }
 
 
-double ft_map2(double unscaled_num, double new_min, double new_max, double old_min, double old_max)
+double map(double unscaled_num, double new_min, double new_max, double old_min, double old_max)
 {
     return (new_max - new_min) * (unscaled_num - old_min) / (old_max - old_min) + new_min;
 }
@@ -65,7 +57,7 @@ void	ft_in_mandelbrot(t_fract *stc, int row, int col)
 	c.r = ft_map(row, stc, 0);
 	c.i = ft_map(col, stc, 1);
 
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < stc->precision; i++)
 	{
 		z = ft_complex_sum(ft_complex_square(z), c);
 		if ((z.r * z.r + z.i * z.i) > 4)
@@ -78,11 +70,19 @@ void	ft_in_mandelbrot(t_fract *stc, int row, int col)
 	mlx_put_pixel(stc->img, row, col, 0x660066); //Purple
 }
 
-int main(void)
+void	ft_init_stc(t_fract *stc)
+{
+	stc->min_x = -2;
+	stc->max_x = 2;
+	stc->min_y = -2;
+	stc->max_y = 2;
+	stc->zoom = 1;
+	stc->precision = 42;
+}
+
+int	main(void)
 {
 	t_fract		stc;
-	mlx_t		*mlx;
-	mlx_image_t	*img;
 
 	stc.mlx = mlx_init(WIDTH, HEIGHT, "Fractol", true);
 	if (!stc.mlx)
@@ -95,6 +95,8 @@ int main(void)
 		exit(1);
 	}
 
+	ft_init_stc(&stc);
+	
 	for (int r = 0; r < HEIGHT; r++)
 	{
 		for (int c = 0; c < WIDTH; c++)

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #ifndef FRACTOL_H
 # define FRACTOL_H
-# include "MLX42.h"
+# include "../../MLX42/include/MLX42/MLX42.h"
 # define WIDTH	1000
 # define HEIGHT	1000
 typedef struct s_complex
@@ -22,9 +22,9 @@ typedef struct s_complex
 
 typedef struct s_fract
 {
-	mlx_t		mlx;
-	mlx_image_t	img;
-	int			precision;
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+	int		precision;
 	double		min_x;
 	double		max_x;
 	double		min_y;
@@ -32,4 +32,6 @@ typedef struct s_fract
 	double		shift_x;
 	double		shift_y;
 	double		zoom;
-}	t_fract
+}	t_fract;
+
+#endif
