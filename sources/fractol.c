@@ -82,8 +82,10 @@ void	ft_init_stc(t_fract *stc)
 
 void	ft_keyboard_hooks(mlx_key_data_t k_data, void *param)
 {
-	if (k_data.key == MLX_KEY_J && keydata.action == MLX_PRESS)
+	(void) param;
+	if (k_data.key == MLX_KEY_J && k_data.action == MLX_PRESS)
 		exit (1);
+}
 
 int	main(void)
 {
