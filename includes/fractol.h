@@ -29,9 +29,9 @@ typedef struct s_fract
 	double		max_x;
 	double		min_y;
 	double		max_y;
-	double		shift_x;
-	double		shift_y;
 	double		zoom;
+	int32_t		mouse_x;		
+	int32_t		mouse_y;
 }	t_fract;
 
 #endif

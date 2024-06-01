@@ -14,6 +14,7 @@
 #include <stdio.h>
 
 void	ft_show_img(t_fract *stc);
+void	ft_close(t_fract *stc, int code);
 
 t_complex	ft_complex_sum(t_complex n1, t_complex n2)
 {
@@ -32,8 +33,6 @@ t_complex ft_complex_square(t_complex n)
 	res.i = 2 * n.r * n.i;
 	return (res);
 }
-
-
 
 double ft_map(double val, t_fract *stc, int axis)
 {
@@ -65,16 +64,28 @@ void	ft_in_mandelbrot(t_fract *stc, int row, int col)
 		z = ft_complex_sum(ft_complex_square(z), c);
 		if ((z.r * z.r + z.i * z.i) > 4)
 		{
-			color = map(i, 0x000000, 0xFFFFFF, 0, 100); // black white
+			color = map(i, 0x000000, 0xFFFFFF, 0, stc->precision); // black white
 			mlx_put_pixel(stc->img, col, row, color);
 			return ;
 		}
 	}
-	mlx_put_pixel(stc->img, col, row, 0x660066); //Purple
+	mlx_put_pixel(stc->img, col, row, (245 << 24 | 40 << 16 | 145 << 8 | 255)); //Purple
 }
 
 void	ft_init_stc(t_fract *stc)
 {
+	stc->mlx = NULL;
+	stc->img = NULL;
+	stc->mlx = mlx_init(WIDTH, HEIGHT, "Fractol", true);
+	if (!stc->mlx)
+		exit(1);
+	stc->img = mlx_new_image(stc->mlx, WIDTH, HEIGHT);
+	if (!stc->img || mlx_image_to_window(stc->mlx, stc->img, 0, 0) < 0)
+	{
+		mlx_close_window(stc->mlx);
+		mlx_terminate(stc->mlx);
+		exit(1);
+	}
 	stc->min_x = -2;
 	stc->max_x = 2;
 	stc->min_y = -2;
@@ -89,51 +100,36 @@ void	ft_keyboard_hooks(mlx_key_data_t k_data, void *vd)
 
 	stc = (t_fract *)vd;
 	if (k_data.key == MLX_KEY_ESCAPE && k_data.action == MLX_PRESS)
-	{
-		//todo free all, close
-		exit (1);
-	}
+		ft_close(stc, 0);
 	if (k_data.key == MLX_KEY_UP && k_data.action == MLX_PRESS)
 	{
 		stc->min_y -= 0.1 * stc->zoom;
 		stc->max_y -= 0.1 * stc->zoom;
-		ft_show_img(stc);
 	}
 	if (k_data.key == MLX_KEY_DOWN && k_data.action == MLX_PRESS)
 	{
 		stc->min_y += 0.1 * stc->zoom;
 		stc->max_y += 0.1 * stc->zoom;
-		ft_show_img(stc);
 	}
 	if (k_data.key == MLX_KEY_LEFT && k_data.action == MLX_PRESS)
 	{
 		stc->min_x -= 0.1 * stc->zoom;
 		stc->max_x -= 0.1 * stc->zoom;
-		ft_show_img(stc);
 	}
 	if (k_data.key == MLX_KEY_RIGHT && k_data.action == MLX_PRESS)
 	{
 		stc->min_x += 0.1 * stc->zoom;
 		stc->max_x += 0.1 * stc->zoom;
-		ft_show_img(stc);
 	}
 	if (k_data.key == MLX_KEY_Q && k_data.action == MLX_PRESS)
-	{
-		stc->precision += 10;
-		ft_show_img(stc);
-	}	
+		stc->precision *= 1.1;
 	if (k_data.key == MLX_KEY_W && k_data.action == MLX_PRESS)
-	{
-		stc->precision -= 10;
-		ft_show_img(stc);
-	}
+		stc->precision *= 0.9;
 }
 
 void	ft_scroll_hooks(double xdelta, double ydelta, void *vd)
 {	
 	t_fract	*stc;
-	int32_t	x;
-	int32_t	y;
 	double	x_scaled;
 	double	y_scaled;
 	double	modifier;
@@ -142,19 +138,18 @@ void	ft_scroll_hooks(double xdelta, double ydelta, void *vd)
 	stc = (t_fract *)vd;
 	if (ydelta != 0)
 	{
-		mlx_get_mouse_pos(stc->mlx, &x, &y);
+		mlx_get_mouse_pos(stc->mlx, &stc->mouse_x, &stc->mouse_y);
 		if (ydelta > 0)
 			modifier = 1.1;
 		else
 			modifier = 0.9;
 		stc->zoom *= modifier;
-		x_scaled = ft_map(x, stc, 1) * (1 - modifier);
-		y_scaled = ft_map(y, stc, 0) * (1 - modifier);
+		x_scaled = ft_map(stc->mouse_x, stc, 1) * (1 - modifier);
+		y_scaled = ft_map(stc->mouse_y, stc, 0) * (1 - modifier);
 		stc->max_x = stc->max_x * modifier + x_scaled;
 		stc->min_x = stc->min_x * modifier + x_scaled;
 		stc->max_y = stc->max_y * modifier + y_scaled;
 		stc->min_y = stc->min_y * modifier + y_scaled;
-		ft_show_img(stc);
 	}
 }
 
@@ -171,25 +166,39 @@ void	ft_show_img(t_fract *stc)
 	mlx_image_to_window(stc->mlx, stc->img, 0, 0);
 }
 
+void	ft_close(t_fract *stc, int code)
+{
+	if (stc->img)
+		mlx_delete_image(stc->mlx, stc->img);
+	if (stc->mlx)
+	{
+		mlx_close_window(stc->mlx);
+		mlx_terminate(stc->mlx);
+	}
+	exit (code);
+}
+
+void	ft_close_hook(void *vd)
+{
+	ft_close((t_fract *)vd, 0);
+}
+
+void	ft_loop_hook(void *vd)
+{
+	ft_show_img((t_fract *) vd);
+}
+
 int	main(void)
 {
 	t_fract		stc;
 
-	stc.mlx = mlx_init(WIDTH, HEIGHT, "Fractol", true);
-	if (!stc.mlx)
-		exit(1);
-	stc.img = mlx_new_image(stc.mlx, WIDTH, HEIGHT);
-	if (!stc.img)
-	{
-		mlx_close_window(stc.mlx);
-		free(stc.mlx);
-		exit(1);
-	}
 	ft_init_stc(&stc);
-	ft_show_img(&stc);
+	mlx_close_hook(stc.mlx, &ft_close_hook, &stc);
 	mlx_key_hook(stc.mlx, &ft_keyboard_hooks, &stc);
 	mlx_scroll_hook(stc.mlx, &ft_scroll_hooks, &stc);
+	mlx_loop_hook(stc.mlx, ft_loop_hook, &stc);
 	mlx_loop(stc.mlx);
+	mlx_terminate(stc.mlx);
 	return (0);
 }
 
