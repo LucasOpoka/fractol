@@ -48,28 +48,25 @@ double map(double unscaled_num, double new_min, double new_max, double old_min, 
     return (new_max - new_min) * (unscaled_num - old_min) / (old_max - old_min) + new_min;
 }
 
-void	ft_in_mandelbrot(t_fract *stc, int row, int col)
+int	ft_mandelbrot(t_fract *stc, int row, int col)
 {
 	t_complex	z;
 	t_complex	c;
-	int		color;
-
+	int			i;
+	
+	i = 0;
 	z.r = 0;
 	z.i = 0;
 	c.r = ft_map(col, stc, 1);
 	c.i = ft_map(row, stc, 0);
-
-	for (int i = 0; i < stc->precision; i++)
+	while (i < stc->precision)
 	{
 		z = ft_complex_sum(ft_complex_square(z), c);
 		if ((z.r * z.r + z.i * z.i) > 4)
-		{
-			color = map(i, 0x000000, 0xFFFFFF, 0, stc->precision); // black white
-			mlx_put_pixel(stc->img, col, row, color);
-			return ;
-		}
+			break ;
+		i++;
 	}
-	mlx_put_pixel(stc->img, col, row, (245 << 24 | 40 << 16 | 145 << 8 | 255)); //Purple
+	return (i);
 }
 
 void	ft_init_stc(t_fract *stc)
@@ -86,6 +83,7 @@ void	ft_init_stc(t_fract *stc)
 		mlx_terminate(stc->mlx);
 		exit(1);
 	}
+	stc->func = &ft_mandelbrot;
 	stc->min_x = -2;
 	stc->max_x = 2;
 	stc->min_y = -2;
@@ -155,13 +153,25 @@ void	ft_scroll_hooks(double xdelta, double ydelta, void *vd)
 
 void	ft_show_img(t_fract *stc)
 {
+	int	res;
+	int	color;
+	int row;
+	int	col;
 	
-	for (int r = 0; r < HEIGHT; r++)
+	row = 0;
+	while (row < HEIGHT)
 	{
-		for (int c = 0; c < WIDTH; c++)
+		col = 0;
+		while (col < WIDTH)
 		{
-			ft_in_mandelbrot(stc, r, c);
+			res = stc->func(stc, row, col);
+			if (res < stc->precision)
+				color = map(res, 0x000000, 0xFFFFFF, 0, stc->precision); // black white
+			else
+				color = (245 << 24 | 40 << 16 | 145 << 8 | 255); // purple
+			mlx_put_pixel(stc->img, col++, row, color);
 		}
+		row++;
 	}
 	mlx_image_to_window(stc->mlx, stc->img, 0, 0);
 }

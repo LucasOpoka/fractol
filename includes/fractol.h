@@ -24,7 +24,8 @@ typedef struct s_fract
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
-	int		precision;
+	int			(*func)(struct s_fract *stc, int row, int col);
+	int			precision;
 	double		min_x;
 	double		max_x;
 	double		min_y;
