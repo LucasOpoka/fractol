@@ -6,13 +6,12 @@
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:47:44 by lopoka            #+#    #+#             */
-/*   Updated: 2024/06/02 21:47:05 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/02 22:41:21 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <math.h>
 
 void	ft_show_img(t_fract *stc);
 void	ft_close(t_fract *stc, int code);
@@ -185,9 +184,9 @@ int	ft_rand_color_map(int val, t_fract *stc)
 	int	b;
 
 	i = (float)val / stc->precision * 255;
-	r = sin(stc->rand_r * i * 8) * 127 + 128; 
-	g = sin(stc->rand_g * i * 8) * 127 + 128; 
-	b = sin(stc->rand_b * i * 8) * 127 + 128; 
+	r = stc->rand_r * i * 127 + 128; 
+	g = stc->rand_g * i * 127 + 128; 
+	b = stc->rand_b * i * 127 + 128; 
 	return (ft_rgbatoi(r, g, b, 255));
 }
 
