@@ -6,7 +6,7 @@
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:06:19 by lopoka            #+#    #+#             */
-/*   Updated: 2024/06/02 13:31:09 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/02 21:31:33 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FRACTOL_H
@@ -33,8 +33,9 @@ typedef struct s_fract
 	double		zoom;
 	int32_t		mouse_x;		
 	int32_t		mouse_y;
-	int32_t		clr_rng_lw;
-	int32_t		clr_rng_hg;
+	double		rand_r;
+	double		rand_g;
+	double		rand_b;
 	int32_t		clr_in_set;
 }	t_fract;
 

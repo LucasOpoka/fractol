@@ -6,16 +6,18 @@
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:47:44 by lopoka            #+#    #+#             */
-/*   Updated: 2024/06/02 14:28:45 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/02 21:47:05 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 void	ft_show_img(t_fract *stc);
 void	ft_close(t_fract *stc, int code);
 int		ft_rgbatoi(int r, int g, int b, int a);
+float ft_rand(void);
 
 t_complex	ft_complex_sum(t_complex n1, t_complex n2)
 {
@@ -91,8 +93,9 @@ void	ft_init_stc(t_fract *stc)
 	stc->max_y = 2;
 	stc->zoom = 1;
 	stc->precision = 100;
-	stc->clr_rng_lw = ft_rgbatoi(0, 0, 0, 255);
-	stc->clr_rng_hg = ft_rgbatoi(255, 255, 255, 255);	
+	stc->rand_r = ft_rand();
+	stc->rand_g = ft_rand();
+	stc->rand_b = ft_rand();
 	stc->clr_in_set = ft_rgbatoi(245, 40, 145, 255);
 }
 
@@ -127,6 +130,12 @@ void	ft_keyboard_hooks(mlx_key_data_t k_data, void *vd)
 		stc->precision *= 1.1;
 	if (k_data.key == MLX_KEY_W && k_data.action == MLX_PRESS)
 		stc->precision *= 0.9;
+	if (k_data.key == MLX_KEY_C && k_data.action == MLX_PRESS)
+	{
+		stc->rand_r = ft_rand();
+		stc->rand_g = ft_rand();
+		stc->rand_b = ft_rand();
+	}
 }
 
 void	ft_scroll_hooks(double xdelta, double ydelta, void *vd)
@@ -160,6 +169,28 @@ int32_t	ft_rgbatoi(int r, int g, int b, int a)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
+float ft_rand(void)
+{
+	static unsigned long int	next;
+
+    next = next * 1103515245 + 12345;
+    return ((float)((next / 65536) % 32768) / 32768);
+}
+
+int	ft_rand_color_map(int val, t_fract *stc)
+{
+	int i;
+	int r;
+	int	g;
+	int	b;
+
+	i = (float)val / stc->precision * 255;
+	r = sin(stc->rand_r * i * 8) * 127 + 128; 
+	g = sin(stc->rand_g * i * 8) * 127 + 128; 
+	b = sin(stc->rand_b * i * 8) * 127 + 128; 
+	return (ft_rgbatoi(r, g, b, 255));
+}
+
 void	ft_show_img(t_fract *stc)
 {
 	int	res;
@@ -174,19 +205,7 @@ void	ft_show_img(t_fract *stc)
 		while (col < WIDTH)
 		{
 			res = stc->func(stc, row, col);
-			if (res < stc->precision)
-			{
-				//int red = res * 2 % 255;
-				//int blue = res * 4 % 255;
-				//int green = res * 8 % 255;
-				//int red = 1.61803398875 * res * 255;
-				//int green = res * 255;
-				//int blue = (red + green) % 255;
-				//color = ft_rgbatoi(red, blue, green, 255);
-				color = map(res, 0x000000, 0xFFFFFF, 0, stc->precision); // black white
-			}
-			else
-				color = stc->clr_in_set; // purple
+			color = ft_rand_color_map(res, stc);
 			mlx_put_pixel(stc->img, col++, row, color);
 		}
 		row++;
