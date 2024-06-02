@@ -6,7 +6,7 @@
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:47:44 by lopoka            #+#    #+#             */
-/*   Updated: 2024/05/31 17:00:38 by lopoka           ###   ########.fr       */
+/*   Updated: 2024/06/02 14:28:45 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -15,6 +15,7 @@
 
 void	ft_show_img(t_fract *stc);
 void	ft_close(t_fract *stc, int code);
+int		ft_rgbatoi(int r, int g, int b, int a);
 
 t_complex	ft_complex_sum(t_complex n1, t_complex n2)
 {
@@ -90,6 +91,9 @@ void	ft_init_stc(t_fract *stc)
 	stc->max_y = 2;
 	stc->zoom = 1;
 	stc->precision = 100;
+	stc->clr_rng_lw = ft_rgbatoi(0, 0, 0, 255);
+	stc->clr_rng_hg = ft_rgbatoi(255, 255, 255, 255);	
+	stc->clr_in_set = ft_rgbatoi(245, 40, 145, 255);
 }
 
 void	ft_keyboard_hooks(mlx_key_data_t k_data, void *vd)
@@ -151,6 +155,11 @@ void	ft_scroll_hooks(double xdelta, double ydelta, void *vd)
 	}
 }
 
+int32_t	ft_rgbatoi(int r, int g, int b, int a)
+{
+	return (r << 24 | g << 16 | b << 8 | a);
+}
+
 void	ft_show_img(t_fract *stc)
 {
 	int	res;
@@ -166,9 +175,18 @@ void	ft_show_img(t_fract *stc)
 		{
 			res = stc->func(stc, row, col);
 			if (res < stc->precision)
+			{
+				//int red = res * 2 % 255;
+				//int blue = res * 4 % 255;
+				//int green = res * 8 % 255;
+				//int red = 1.61803398875 * res * 255;
+				//int green = res * 255;
+				//int blue = (red + green) % 255;
+				//color = ft_rgbatoi(red, blue, green, 255);
 				color = map(res, 0x000000, 0xFFFFFF, 0, stc->precision); // black white
+			}
 			else
-				color = (245 << 24 | 40 << 16 | 145 << 8 | 255); // purple
+				color = stc->clr_in_set; // purple
 			mlx_put_pixel(stc->img, col++, row, color);
 		}
 		row++;
