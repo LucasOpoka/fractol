@@ -6,7 +6,7 @@
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:47:44 by lopoka            #+#    #+#             */
-/*   Updated: 2024/06/02 22:41:21 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/02 23:54:55 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -173,20 +173,20 @@ float ft_rand(void)
 	static unsigned long int	next;
 
     next = next * 1103515245 + 12345;
-    return ((float)((next / 65536) % 32768) / 32768);
+    return (((next / 65536) % 32768) / (float)32767);
 }
 
 int	ft_rand_color_map(int val, t_fract *stc)
 {
-	int i;
+	double i;
 	int r;
 	int	g;
 	int	b;
 
-	i = (float)val / stc->precision * 255;
-	r = stc->rand_r * i * 127 + 128; 
-	g = stc->rand_g * i * 127 + 128; 
-	b = stc->rand_b * i * 127 + 128; 
+	i = (double)val / stc->precision;
+	r = (int)(stc->rand_r * i * 4242) % 255; 
+	g = (int)(stc->rand_g * i * 4242) % 255; 
+	b = (int)(stc->rand_b * i * 4242) % 255; 
 	return (ft_rgbatoi(r, g, b, 255));
 }
 
