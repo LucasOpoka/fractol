@@ -6,7 +6,7 @@
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:47:44 by lopoka            #+#    #+#             */
-/*   Updated: 2024/06/02 23:54:55 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/03 14:29:50 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -42,12 +42,6 @@ double ft_map(double val, t_fract *stc, int axis)
     	return (val * (stc->max_y - stc->min_y) / HEIGHT + stc->min_y);
 	else	
     	return (val * (stc->max_x - stc->min_x) / WIDTH + stc->min_x);
-}
-
-
-double map(double unscaled_num, double new_min, double new_max, double old_min, double old_max)
-{
-    return (new_max - new_min) * (unscaled_num - old_min) / (old_max - old_min) + new_min;
 }
 
 int	ft_mandelbrot(t_fract *stc, int row, int col)
