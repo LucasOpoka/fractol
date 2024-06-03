@@ -6,7 +6,7 @@
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:06:19 by lopoka            #+#    #+#             */
-/*   Updated: 2024/06/02 21:31:33 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/03 14:51:45 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FRACTOL_H
@@ -38,5 +38,8 @@ typedef struct s_fract
 	double		rand_b;
 	int32_t		clr_in_set;
 }	t_fract;
+
+t_complex	ft_complex_sum(t_complex n1, t_complex n2);
+t_complex ft_complex_square(t_complex n);
 
 #endif
