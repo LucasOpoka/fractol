@@ -6,18 +6,17 @@
 #    By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/29 14:59:04 by lopoka            #+#    #+#              #
-#    Updated: 2024/06/03 14:53:02 by lucas            ###   ########.fr        #
+#    Updated: 2024/06/03 15:12:36 by lucas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= fractol
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast -flto
 LIBMLX	:= sources/MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
-SRCS	:= sources/fractol.c \
-		   sources/complex_num.c 
+SRCS	:= sources/fractol.c sources/complex_num.c 
 OBJS	:= ${SRCS:.c=.o}
 
 all: libmlx $(NAME)
@@ -29,7 +28,7 @@ libmlx:
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
 
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -flto -o $(NAME)
 
 clean:
 	@rm -rf $(OBJS)

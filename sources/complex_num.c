@@ -6,12 +6,12 @@
 /*   By: lucas <lopoka@student.hive.fi>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:50:22 by lucas             #+#    #+#             */
-/*   Updated: 2024/06/03 14:50:44 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/03 15:17:02 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
 
-t_complex	ft_complex_sum(t_complex n1, t_complex n2)
+inline t_complex	ft_complex_sum(t_complex n1, t_complex n2)
 {
 	t_complex	res;
 
@@ -20,7 +20,7 @@ t_complex	ft_complex_sum(t_complex n1, t_complex n2)
 	return (res);
 }
 
-t_complex ft_complex_square(t_complex n)
+inline t_complex ft_complex_square(t_complex n)
 {
 	t_complex	res;
 
