@@ -6,7 +6,7 @@
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:06:19 by lopoka            #+#    #+#             */
-/*   Updated: 2024/06/03 18:42:39 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/03 23:53:32 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FRACTOL_H
@@ -45,6 +45,8 @@ typedef struct s_fract
 int	ft_mandelbrot(t_fract *stc, int row, int col);
 int	ft_julia(t_fract *stc, int row, int col);
 int	ft_newton(t_fract *stc, int row, int col);
+int	ft_bow(t_fract *stc, int row, int col);
+int	ft_mandelbrot3(t_fract *stc, int row, int col);
 
 void	ft_show_img(t_fract *stc);
 float ft_rand(void);
@@ -58,8 +60,13 @@ void	ft_scroll_hooks(double xdelta, double ydelta, void *vd);
 
 void	ft_init_stc(t_fract *stc);
 double ft_map(double val, t_fract *stc, int axis);
-t_complex	ft_complex_sum(t_complex n1, t_complex n2);
-t_complex	ft_complex_square(t_complex n);
+
+t_complex	ft_cplx_sum(t_complex n1, t_complex n2);
+t_complex	ft_cplx_subt(t_complex n1, t_complex n2);
+t_complex	ft_cplx_rl_mult(int r, t_complex n2);
+t_complex	ft_cplx_div(t_complex n1, t_complex n2);
+t_complex	ft_cplx_square(t_complex n);
+t_complex	ft_cplx_cube(t_complex n);
 
 void	ft_close(t_fract *stc, int code);
 

@@ -6,7 +6,7 @@
 /*   By: lucas <lopoka@student.hive.fi>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:55:43 by lucas             #+#    #+#             */
-/*   Updated: 2024/06/03 16:56:02 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/03 23:52:17 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -32,4 +32,3 @@ void	ft_show_img(t_fract *stc)
 	}
 	mlx_image_to_window(stc->mlx, stc->img, 0, 0);
 }
-
