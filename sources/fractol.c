@@ -6,7 +6,7 @@
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:47:44 by lopoka            #+#    #+#             */
-/*   Updated: 2024/06/03 15:12:54 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/03 15:50:59 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -17,25 +17,6 @@ void	ft_show_img(t_fract *stc);
 void	ft_close(t_fract *stc, int code);
 int		ft_rgbatoi(int r, int g, int b, int a);
 float ft_rand(void);
-
-/*
-t_complex	ft_complex_sum(t_complex n1, t_complex n2)
-{
-	t_complex	res;
-
-	res.r = n1.r + n2.r;
-	res.i = n1.i + n2.i;
-	return (res);
-}
-
-t_complex ft_complex_square(t_complex n)
-{
-	t_complex	res;
-
-	res.r = n.r * n.r - n.i * n.i;
-	res.i = 2 * n.r * n.i;
-	return (res);
-}*/
 
 double ft_map(double val, t_fract *stc, int axis)
 {
