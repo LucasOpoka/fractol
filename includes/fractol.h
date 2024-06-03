@@ -6,15 +6,18 @@
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:06:19 by lopoka            #+#    #+#             */
-/*   Updated: 2024/06/03 17:10:11 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/03 18:42:39 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FRACTOL_H
 # define FRACTOL_H
 # include <stdlib.h>
+# include <math.h>
 # include "../../MLX42/include/MLX42/MLX42.h"
 # define WIDTH	1200
 # define HEIGHT	1200
+# define abs(x) ((x)<0 ? -(x) : (x))
+
 typedef struct s_complex
 {
 	double	r;
@@ -41,6 +44,7 @@ typedef struct s_fract
 
 int	ft_mandelbrot(t_fract *stc, int row, int col);
 int	ft_julia(t_fract *stc, int row, int col);
+int	ft_newton(t_fract *stc, int row, int col);
 
 void	ft_show_img(t_fract *stc);
 float ft_rand(void);
