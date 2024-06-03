@@ -6,12 +6,10 @@
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:47:44 by lopoka            #+#    #+#             */
-/*   Updated: 2024/06/03 15:50:59 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/03 16:16:31 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 void	ft_show_img(t_fract *stc);
 void	ft_close(t_fract *stc, int code);
@@ -24,27 +22,6 @@ double ft_map(double val, t_fract *stc, int axis)
     	return (val * (stc->max_y - stc->min_y) / HEIGHT + stc->min_y);
 	else	
     	return (val * (stc->max_x - stc->min_x) / WIDTH + stc->min_x);
-}
-
-int	ft_mandelbrot(t_fract *stc, int row, int col)
-{
-	t_complex	z;
-	t_complex	c;
-	int			i;
-	
-	i = 0;
-	z.r = 0;
-	z.i = 0;
-	c.r = ft_map(col, stc, 1);
-	c.i = ft_map(row, stc, 0);
-	while (i < stc->precision)
-	{
-		z = ft_complex_sum(ft_complex_square(z), c);
-		if ((z.r * z.r + z.i * z.i) > 4)
-			break ;
-		i++;
-	}
-	return (i);
 }
 
 void	ft_init_stc(t_fract *stc)
@@ -71,7 +48,6 @@ void	ft_init_stc(t_fract *stc)
 	stc->rand_r = ft_rand();
 	stc->rand_g = ft_rand();
 	stc->rand_b = ft_rand();
-	stc->clr_in_set = ft_rgbatoi(245, 40, 145, 255);
 }
 
 void	ft_keyboard_hooks(mlx_key_data_t k_data, void *vd)
@@ -137,33 +113,6 @@ void	ft_scroll_hooks(double xdelta, double ydelta, void *vd)
 		stc->max_y = stc->max_y * modifier + y_scaled;
 		stc->min_y = stc->min_y * modifier + y_scaled;
 	}
-}
-
-int32_t	ft_rgbatoi(int r, int g, int b, int a)
-{
-	return (r << 24 | g << 16 | b << 8 | a);
-}
-
-float ft_rand(void)
-{
-	static unsigned long int	next;
-
-    next = next * 1103515245 + 12345;
-    return (((next / 65536) % 32768) / (float)32767);
-}
-
-int	ft_rand_color_map(int val, t_fract *stc)
-{
-	double i;
-	int r;
-	int	g;
-	int	b;
-
-	i = (double)val / stc->precision;
-	r = (int)(stc->rand_r * i * 4242) % 255; 
-	g = (int)(stc->rand_g * i * 4242) % 255; 
-	b = (int)(stc->rand_b * i * 4242) % 255; 
-	return (ft_rgbatoi(r, g, b, 255));
 }
 
 void	ft_show_img(t_fract *stc)

@@ -6,11 +6,12 @@
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:06:19 by lopoka            #+#    #+#             */
-/*   Updated: 2024/06/03 15:25:07 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/03 16:07:54 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FRACTOL_H
 # define FRACTOL_H
+# include <stdlib.h>
 # include "../../MLX42/include/MLX42/MLX42.h"
 # define WIDTH	1200
 # define HEIGHT	1200
@@ -36,9 +37,14 @@ typedef struct s_fract
 	double		rand_r;
 	double		rand_g;
 	double		rand_b;
-	int32_t		clr_in_set;
 }	t_fract;
 
+int	ft_mandelbrot(t_fract *stc, int row, int col);
+
+float ft_rand(void);
+int	ft_rand_color_map(int val, t_fract *stc);
+
+double ft_map(double val, t_fract *stc, int axis);
 t_complex	ft_complex_sum(t_complex n1, t_complex n2);
 t_complex	ft_complex_square(t_complex n);
 
