@@ -6,10 +6,18 @@
 /*   By: lucas <lopoka@student.hive.fi>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:56:16 by lucas             #+#    #+#             */
-/*   Updated: 2024/06/03 15:59:20 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/03 17:05:05 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
+
+double ft_map(double val, t_fract *stc, int axis)
+{
+	if (!axis)
+    	return (val * (stc->max_y - stc->min_y) / HEIGHT + stc->min_y);
+	else	
+    	return (val * (stc->max_x - stc->min_x) / WIDTH + stc->min_x);
+}
 
 inline int	ft_mandelbrot(t_fract *stc, int row, int col)
 {
