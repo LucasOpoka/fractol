@@ -6,7 +6,7 @@
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:06:19 by lopoka            #+#    #+#             */
-/*   Updated: 2024/06/03 17:04:54 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/03 17:10:11 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FRACTOL_H
@@ -40,6 +40,7 @@ typedef struct s_fract
 }	t_fract;
 
 int	ft_mandelbrot(t_fract *stc, int row, int col);
+int	ft_julia(t_fract *stc, int row, int col);
 
 void	ft_show_img(t_fract *stc);
 float ft_rand(void);
