@@ -6,7 +6,7 @@
 /*   By: lucas <lopoka@student.hive.fi>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:59:53 by lucas             #+#    #+#             */
-/*   Updated: 2024/06/03 17:00:15 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/04 15:09:14 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -22,4 +22,3 @@ void	ft_close(t_fract *stc, int code)
 	}
 	exit (code);
 }
-

@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   show_img.c                                         :+:      :+:    :+:   */
+/*   complex_pow.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucas <lopoka@student.hive.fi>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/03 16:55:43 by lucas             #+#    #+#             */
-/*   Updated: 2024/06/04 15:20:16 by lucas            ###   ########.fr       */
+/*   Created: 2024/06/04 15:13:50 by lucas             #+#    #+#             */
+/*   Updated: 2024/06/04 15:14:37 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
 
-void	ft_show_img(t_fract *stc)
+inline t_complex	ft_cplx_square(t_complex n)
 {
-	int	res;
-	int	color;
-	int	row;
-	int	col;
+	t_complex	res;
 
-	row = 0;
-	while (row < HEIGHT)
-	{
-		col = 0;
-		while (col < WIDTH)
-		{
-			res = stc->func(stc, row, col);
-			color = ft_rand_color_map(res, stc);
-			mlx_put_pixel(stc->img, col++, row, color);
-		}
-		row++;
-	}
-	mlx_image_to_window(stc->mlx, stc->img, 0, 0);
+	res.r = n.r * n.r - n.i * n.i;
+	res.i = 2 * n.r * n.i;
+	return (res);
+}
+
+inline t_complex	ft_cplx_cube(t_complex n)
+{
+	t_complex	res;
+
+	res.r = (n.r * n.r * n.r) - 3 * (n.r * n.i * n.i);
+	res.i = 3 * (n.r * n.r * n.i) - (n.i * n.i * n.i);
+	return (res);
 }

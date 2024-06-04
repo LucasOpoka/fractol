@@ -6,7 +6,7 @@
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:47:44 by lopoka            #+#    #+#             */
-/*   Updated: 2024/06/03 17:03:43 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/04 15:18:51 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -24,4 +24,3 @@ int	main(void)
 	mlx_terminate(stc.mlx);
 	return (0);
 }
-

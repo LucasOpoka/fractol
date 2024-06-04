@@ -6,7 +6,7 @@
 /*   By: lucas <lopoka@student.hive.fi>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:40:23 by lucas             #+#    #+#             */
-/*   Updated: 2024/06/04 00:00:22 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/04 15:49:37 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -25,7 +25,7 @@ void	ft_init_stc(t_fract *stc)
 		mlx_terminate(stc->mlx);
 		exit(1);
 	}
-	stc->func = &ft_julia;
+	stc->func = &ft_mandelbrot;
 	stc->min_x = -2;
 	stc->max_x = 2;
 	stc->min_y = -2;
@@ -36,4 +36,3 @@ void	ft_init_stc(t_fract *stc)
 	stc->rand_g = ft_rand();
 	stc->rand_b = ft_rand();
 }
-

@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   show_img.c                                         :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucas <lopoka@student.hive.fi>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/03 16:55:43 by lucas             #+#    #+#             */
-/*   Updated: 2024/06/04 15:20:16 by lucas            ###   ########.fr       */
+/*   Created: 2024/06/04 15:31:10 by lucas             #+#    #+#             */
+/*   Updated: 2024/06/04 15:31:30 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../includes/fractol.h"
+#include "../includes/fractol.h" 
 
-void	ft_show_img(t_fract *stc)
+double	ft_map(double val, t_fract *stc, int axis)
 {
-	int	res;
-	int	color;
-	int	row;
-	int	col;
-
-	row = 0;
-	while (row < HEIGHT)
-	{
-		col = 0;
-		while (col < WIDTH)
-		{
-			res = stc->func(stc, row, col);
-			color = ft_rand_color_map(res, stc);
-			mlx_put_pixel(stc->img, col++, row, color);
-		}
-		row++;
-	}
-	mlx_image_to_window(stc->mlx, stc->img, 0, 0);
+	if (!axis)
+		return (val * (stc->max_y - stc->min_y) / HEIGHT + stc->min_y);
+	else
+		return (val * (stc->max_x - stc->min_x) / WIDTH + stc->min_x);
 }
+
