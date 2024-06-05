@@ -13,7 +13,7 @@
 # define FRACTOL_H
 # include <stdlib.h>
 # include <math.h>
-# include "../../MLX42/include/MLX42/MLX42.h"
+# include "../sources/MLX42/include/MLX42/MLX42.h"
 # define WIDTH	1200
 # define HEIGHT	1200
 # define abs(x) ((x)<0 ? -(x) : (x))

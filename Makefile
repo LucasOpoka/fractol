@@ -10,12 +10,15 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	:= fractol
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast -flto
-LIBMLX	:= sources/MLX42
+NAME = fractol
 
-HEADERS	:= -I ./include -I $(LIBMLX)/include
-LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+CC = cc
+
+CFLAGS = -Wall -Wextra -Werror -Ofast -flto -I ./includes
+MLX42 = sources/MLX42
+
+LIBS = ${MLX42}/build/libmlx42.a -ldl -lglfw -pthread -lm
+
 SRCS	=	sources/fractol.c \
 			sources/complex_num.c \
 			sources/complex_pow.c \
@@ -28,26 +31,23 @@ SRCS	=	sources/fractol.c \
 			sources/close.c \
 			sources/map.c 
 
-OBJS	:= ${SRCS:.c=.o}
+OFILES = ${SRCS:.c=.o}
 
-all: libmlx $(NAME)
-
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+all: ${NAME}
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+	${CC} ${CFLAGS} -c -o $@ $<
 
-$(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -flto -o $(NAME)
+${NAME}: ${OFILES}
+	cmake ${MLX42} -B ${MLX42}/build && make -C ${MLX42}/build -j4
+	${CC} -o ${NAME} ${CFLAGS} ${OFILES} ${LIBS} -flto
 
 clean:
-	@rm -rf $(OBJS)
-	@rm -rf $(LIBMLX)/build
+	rm -rf ${OFILES} ${MLX42}/build
 
 fclean: clean
-	@rm -rf $(NAME)
+	rm -rf ${NAME} ${OFILES} ${MLX42}/build
 
-re: clean all
+re: fclean all
 
-.PHONY: all, clean, fclean, re, libmlx
+.PHONY: all, clean, fclean, re, mlx42
