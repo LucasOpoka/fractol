@@ -6,7 +6,7 @@
 /*   By: lucas <lopoka@student.hive.fi>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:56:16 by lucas             #+#    #+#             */
-/*   Updated: 2024/06/04 15:39:32 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/05 16:24:20 by lopoka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -41,8 +41,8 @@ inline int	ft_julia(t_fract *stc, int row, int col)
 	i = 0;
 	z.r = ft_map(col, stc, 1);
 	z.i = ft_map(row, stc, 0);
-	c.r = -0.7269;
-	c.i = 0.1889;
+	c.r = stc->julia_cr;
+	c.i = stc->julia_ci;
 	while (i < stc->precision)
 	{
 		z = ft_cplx_sum(ft_cplx_square(z), c);

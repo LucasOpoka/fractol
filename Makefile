@@ -6,7 +6,7 @@
 #    By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/29 14:59:04 by lopoka            #+#    #+#              #
-#    Updated: 2024/06/04 15:37:48 by lucas            ###   ########.fr        #
+#    Updated: 2024/06/05 16:20:12 by lopoka           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,9 @@ SRCS	=	sources/fractol.c \
 			sources/init.c \
 			sources/show_img.c \
 			sources/close.c \
-			sources/map.c 
+			sources/map.c \
+			sources/strcmp.c \
+			sources/atof.c \
 
 OFILES = ${SRCS:.c=.o}
 
