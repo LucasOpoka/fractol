@@ -6,7 +6,7 @@
 /*   By: lucas <lopoka@student.hive.fi>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:40:23 by lucas             #+#    #+#             */
-/*   Updated: 2024/06/05 16:21:14 by lopoka           ###   ########.fr       */
+/*   Updated: 2024/06/05 22:10:58 by lopoka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -25,27 +25,21 @@ static inline void	ft_print_usage(void)
 
 void	ft_validate_av(t_fract *stc, int ac, char **av)
 {
-	(void) stc;
-	(void) av;
-	if (ac != 2 && ac != 4)
-		ft_print_usage();
-	if (!ft_strcmp(av[1], "Mandelbrot"))
-		stc->func = &ft_mandelbrot;
-	else if (!ft_strcmp(av[1], "Julia"))
+	if (ac == 4 && !ft_strcmp(av[1], "Julia"))
 	{
-		if (ac != 4)
-			ft_print_usage();
 		stc->func = &ft_julia;
 		stc->julia_cr = ft_atof(av[2]);
 		stc->julia_ci = ft_atof(av[3]);
 	}
-	else if (!ft_strcmp(av[1], "Newton"))
+	else if (ac == 2 && !ft_strcmp(av[1], "Mandelbrot"))
+		stc->func = &ft_mandelbrot;
+	else if (ac == 2 && !ft_strcmp(av[1], "Newton"))
 		stc->func = &ft_newton;
-	else if (!ft_strcmp(av[1], "Bow"))
+	else if (ac == 2 && !ft_strcmp(av[1], "Bow"))
 		stc->func = &ft_bow;
-	else if (!ft_strcmp(av[1], "Mandelbrot3"))
+	else if (ac == 2 && !ft_strcmp(av[1], "Mandelbrot3"))
 		stc->func = &ft_mandelbrot3;
-	else if (!ft_strcmp(av[1], "CubicJulia"))
+	else if (ac == 2 && !ft_strcmp(av[1], "CubicJulia"))
 		stc->func = &ft_cubic_julia;
 	else
 		ft_print_usage();
