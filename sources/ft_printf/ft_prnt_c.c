@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.c                                          :+:      :+:    :+:   */
+/*   ft_prnt_c.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/30 17:47:44 by lopoka            #+#    #+#             */
-/*   Updated: 2024/06/04 15:18:51 by lucas            ###   ########.fr       */
+/*   Created: 2024/05/03 13:57:56 by lopoka            #+#    #+#             */
+/*   Updated: 2024/05/17 09:52:34 by lopoka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../includes/fractol.h"
+#include "ft_printf.h"
 
-int	main(int ac, char **av)
+void	ft_prnt_c(t_printf *stc, int c)
 {
-	t_fract		stc;
-
-	ft_init_stc(&stc);
-	mlx_close_hook(stc.mlx, &ft_close_hook, &stc);
-	mlx_key_hook(stc.mlx, &ft_keyboard_hooks, &stc);
-	mlx_scroll_hook(stc.mlx, &ft_scroll_hooks, &stc);
-	mlx_loop_hook(stc.mlx, ft_loop_hook, &stc);
-	mlx_loop(stc.mlx);
-	mlx_terminate(stc.mlx);
-	return (0);
+	ft_printf_realloc(stc);
+	ft_prnt_add(stc, c);
 }

@@ -17,14 +17,10 @@ void	ft_init_stc(t_fract *stc)
 	stc->img = NULL;
 	stc->mlx = mlx_init(WIDTH, HEIGHT, "Fractol", true);
 	if (!stc->mlx)
-		exit(1);
+		ft_close(stc, 1);
 	stc->img = mlx_new_image(stc->mlx, WIDTH, HEIGHT);
 	if (!stc->img || mlx_image_to_window(stc->mlx, stc->img, 0, 0) < 0)
-	{
-		mlx_close_window(stc->mlx);
-		mlx_terminate(stc->mlx);
-		exit(1);
-	}
+		ft_close(stc, 1);
 	stc->func = &ft_mandelbrot;
 	stc->min_x = -2;
 	stc->max_x = 2;

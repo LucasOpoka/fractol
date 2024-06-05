@@ -16,8 +16,10 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -Ofast -flto -I ./includes
 MLX42 = sources/MLX42
+FT_PRINTF = sources/ft_printf
 
-LIBS = ${MLX42}/build/libmlx42.a -ldl -lglfw -pthread -lm
+LIBS = ${MLX42}/build/libmlx42.a -ldl -lglfw -pthread -lm \
+	   ${FT_PRINTF}/libftprintf.a
 
 SRCS	=	sources/fractol.c \
 			sources/complex_num.c \
@@ -39,13 +41,16 @@ all: ${NAME}
 	${CC} ${CFLAGS} -c -o $@ $<
 
 ${NAME}: ${OFILES}
+	${MAKE} -C ${FT_PRINTF}
 	cmake ${MLX42} -B ${MLX42}/build && make -C ${MLX42}/build -j4
 	${CC} -o ${NAME} ${CFLAGS} ${OFILES} ${LIBS} -flto
 
 clean:
+	${MAKE} -C ${FT_PRINTF} clean	
 	rm -rf ${OFILES} ${MLX42}/build
 
 fclean: clean
+	${MAKE} -C ${FT_PRINTF} fclean
 	rm -rf ${NAME} ${OFILES} ${MLX42}/build
 
 re: fclean all

@@ -14,6 +14,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include "../sources/MLX42/include/MLX42/MLX42.h"
+# include "../sources/ft_printf/ft_printf.h"
 # define WIDTH	1200
 # define HEIGHT	1200
 # define abs(x) ((x)<0 ? -(x) : (x))

@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.c                                          :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/30 17:47:44 by lopoka            #+#    #+#             */
-/*   Updated: 2024/06/04 15:18:51 by lucas            ###   ########.fr       */
+/*   Created: 2024/05/16 15:47:54 by lopoka            #+#    #+#             */
+/*   Updated: 2024/05/16 17:48:35 by lopoka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../includes/fractol.h"
+#include "ft_printf.h"
 
-int	main(int ac, char **av)
+void	*ft_realloc(void *src, size_t old_s, size_t add_s)
 {
-	t_fract		stc;
+	size_t	i;
+	void	*dst;
+	char	*c_dst;
+	char	*c_src;
 
-	ft_init_stc(&stc);
-	mlx_close_hook(stc.mlx, &ft_close_hook, &stc);
-	mlx_key_hook(stc.mlx, &ft_keyboard_hooks, &stc);
-	mlx_scroll_hook(stc.mlx, &ft_scroll_hooks, &stc);
-	mlx_loop_hook(stc.mlx, ft_loop_hook, &stc);
-	mlx_loop(stc.mlx);
-	mlx_terminate(stc.mlx);
-	return (0);
+	dst = (void *) malloc(old_s + add_s);
+	if (!dst)
+	{
+		free (src);
+		return (0);
+	}
+	c_dst = (char *) dst;
+	c_src = (char *) src;
+	i = 0;
+	while (i < old_s)
+	{
+		c_dst[i] = c_src[i];
+		i++;
+	}
+	free(src);
+	return (dst);
 }
