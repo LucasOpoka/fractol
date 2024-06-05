@@ -60,7 +60,7 @@ void	ft_keyboard_hooks(mlx_key_data_t k_data, void *vd);
 void	ft_scroll_hooks(double xdelta, double ydelta, void *vd);
 
 
-void	ft_init_stc(t_fract *stc);
+void	ft_init_stc(t_fract *stc, int ac, char **av);
 double ft_map(double val, t_fract *stc, int axis);
 
 t_complex	ft_cplx_sum(t_complex n1, t_complex n2);

@@ -11,8 +11,29 @@
 /* ************************************************************************** */
 #include "../includes/fractol.h"
 
-void	ft_init_stc(t_fract *stc)
+static inline void	ft_print_usage(void)
 {
+	ft_printf("Usage:\nFirst argument has to be one of those sets: ");
+	ft_printf("Mandelbrot, Julia, Newton, Bow, Mandelbrot3, CubicJulia.\n");
+	ft_printf("In case the Julia set was choosen provide two additional ");
+	ft_printf("parameters: the real and imaginary parts of C.\n");
+	ft_printf("To move the view use arrows, to zoom in and out use scroll.\n");
+	ft_printf("To increase precision press Q to decrease it press W.\n");
+	ft_printf("To change colour palette press C.\n");
+	exit (1);
+}
+
+void	ft_validate_av(t_fract *stc, int ac, char **av)
+{
+	(void) stc;
+	(void) av;
+	if (ac != 2 || ac != 4)
+		ft_print_usage();
+}
+
+void	ft_init_stc(t_fract *stc, int ac, char **av)
+{
+	ft_validate_av(stc, ac, av);
 	stc->mlx = NULL;
 	stc->img = NULL;
 	stc->mlx = mlx_init(WIDTH, HEIGHT, "Fractol", true);

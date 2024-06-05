@@ -15,7 +15,7 @@ int	main(int ac, char **av)
 {
 	t_fract		stc;
 
-	ft_init_stc(&stc);
+	ft_init_stc(&stc, ac, av);
 	mlx_close_hook(stc.mlx, &ft_close_hook, &stc);
 	mlx_key_hook(stc.mlx, &ft_keyboard_hooks, &stc);
 	mlx_scroll_hook(stc.mlx, &ft_scroll_hooks, &stc);
