@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucas <lopoka@student.hive.fi>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:40:23 by lucas             #+#    #+#             */
-/*   Updated: 2024/06/05 22:44:06 by lopoka           ###   ########.fr       */
+/*   Updated: 2024/06/05 22:38:24 by lopoka           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -14,7 +14,7 @@
 static inline void	ft_print_usage(void)
 {
 	ft_printf("Usage:\nFirst argument has to be one of those sets: ");
-	ft_printf("Mandelbrot, Julia.\n");
+	ft_printf("Mandelbrot, Julia, Newton, Bow, Mandelbrot3, CubicJulia.\n");
 	ft_printf("In case the Julia set was choosen provide two additional ");
 	ft_printf("parameters: the real and imaginary parts of C.\n");
 	ft_printf("To move the view use arrows, to zoom in and out use scroll.\n");
@@ -33,6 +33,14 @@ void	ft_validate_av(t_fract *stc, int ac, char **av)
 	}
 	else if (ac == 2 && !ft_strcmp(av[1], "Mandelbrot"))
 		stc->func = &ft_mandelbrot;
+	else if (ac == 2 && !ft_strcmp(av[1], "Newton"))
+		stc->func = &ft_newton;
+	else if (ac == 2 && !ft_strcmp(av[1], "Bow"))
+		stc->func = &ft_bow;
+	else if (ac == 2 && !ft_strcmp(av[1], "Mandelbrot3"))
+		stc->func = &ft_mandelbrot3;
+	else if (ac == 2 && !ft_strcmp(av[1], "CubicJulia"))
+		stc->func = &ft_cubic_julia;
 	else
 		ft_print_usage();
 }
