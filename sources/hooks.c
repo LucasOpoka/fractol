@@ -6,7 +6,7 @@
 /*   By: lucas <lopoka@student.hive.fi>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:19:36 by lucas             #+#    #+#             */
-/*   Updated: 2024/06/04 15:50:25 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/06 15:16:17 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -15,13 +15,13 @@ static inline void	ft_move_view(mlx_key_data_t k_data, t_fract *stc)
 {
 	if (k_data.key == MLX_KEY_UP && k_data.action == MLX_PRESS)
 	{
-		stc->min_y -= 0.1 * stc->zoom;
-		stc->max_y -= 0.1 * stc->zoom;
+		stc->min_y += 0.1 * stc->zoom;
+		stc->max_y += 0.1 * stc->zoom;
 	}
 	if (k_data.key == MLX_KEY_DOWN && k_data.action == MLX_PRESS)
 	{
-		stc->min_y += 0.1 * stc->zoom;
-		stc->max_y += 0.1 * stc->zoom;
+		stc->min_y -= 0.1 * stc->zoom;
+		stc->max_y -= 0.1 * stc->zoom;
 	}
 	if (k_data.key == MLX_KEY_LEFT && k_data.action == MLX_PRESS)
 	{

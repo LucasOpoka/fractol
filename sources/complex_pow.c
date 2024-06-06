@@ -6,7 +6,7 @@
 /*   By: lucas <lopoka@student.hive.fi>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 15:13:50 by lucas             #+#    #+#             */
-/*   Updated: 2024/06/04 15:14:37 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/06 15:47:57 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -15,7 +15,7 @@ inline t_complex	ft_cplx_square(t_complex n)
 {
 	t_complex	res;
 
-	res.r = n.r * n.r - n.i * n.i;
+	res.r = (n.r * n.r) - (n.i * n.i);
 	res.i = 2 * n.r * n.i;
 	return (res);
 }

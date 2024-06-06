@@ -6,7 +6,7 @@
 /*   By: lucas <lopoka@student.hive.fi>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:40:23 by lucas             #+#    #+#             */
-/*   Updated: 2024/06/06 14:30:10 by lucas            ###   ########.fr       */
+/*   Updated: 2024/06/06 15:15:20 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -58,8 +58,8 @@ void	ft_init_stc(t_fract *stc, int ac, char **av)
 		ft_close(stc, 1);
 	stc->min_x = -2;
 	stc->max_x = 2;
-	stc->min_y = -2;
-	stc->max_y = 2;
+	stc->min_y = 2;
+	stc->max_y = -2;
 	stc->zoom = 1;
 	stc->precision = 100;
 	stc->rand_r = ft_rand();
