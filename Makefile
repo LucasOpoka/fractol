@@ -6,7 +6,7 @@
 #    By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/29 14:59:04 by lopoka            #+#    #+#              #
-#    Updated: 2024/06/05 22:44:41 by lopoka           ###   ########.fr        #
+#    Updated: 2024/06/06 12:52:13 by lucas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRCS	=	sources/fractol.c \
 			sources/close.c \
 			sources/map.c \
 			sources/strcmp.c \
-			sources/atof.c \
+			sources/atold.c \
 
 B_SRCS	=	sources/fractol.c \
 			sources/complex_num.c \
@@ -46,7 +46,7 @@ B_SRCS	=	sources/fractol.c \
 			sources/close.c \
 			sources/map.c \
 			sources/strcmp.c \
-			sources/atof.c \
+			sources/atold.c \
 
 OFILES = ${SRCS:.c=.o}
 

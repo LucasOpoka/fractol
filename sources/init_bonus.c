@@ -6,7 +6,7 @@
 /*   By: lucas <lopoka@student.hive.fi>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:40:23 by lucas             #+#    #+#             */
-/*   Updated: 2024/06/05 22:38:24 by lopoka           ###   ########.fr       */
+/*   Updated: 2024/06/06 14:30:10 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -28,8 +28,8 @@ void	ft_validate_av(t_fract *stc, int ac, char **av)
 	if (ac == 4 && !ft_strcmp(av[1], "Julia"))
 	{
 		stc->func = &ft_julia;
-		stc->julia_cr = ft_atof(av[2]);
-		stc->julia_ci = ft_atof(av[3]);
+		stc->julia_cr = ft_atold(av[2]);
+		stc->julia_ci = ft_atold(av[3]);
 	}
 	else if (ac == 2 && !ft_strcmp(av[1], "Mandelbrot"))
 		stc->func = &ft_mandelbrot;

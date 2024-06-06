@@ -6,7 +6,7 @@
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:06:19 by lopoka            #+#    #+#             */
-/*   Updated: 2024/06/05 16:43:56 by lopoka           ###   ########.fr       */
+/*   Updated: 2024/06/06 14:41:32 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FRACTOL_H
@@ -17,7 +17,6 @@
 # include "../sources/ft_printf/ft_printf.h"
 # define WIDTH	1200
 # define HEIGHT	1200
-# define abs(x) ((x)<0 ? -(x) : (x))
 
 typedef struct s_complex
 {
@@ -62,7 +61,7 @@ void		ft_keyboard_hooks(mlx_key_data_t k_data, void *vd);
 void		ft_scroll_hooks(double xdelta, double ydelta, void *vd);
 
 int			ft_strcmp(const char *s1, const char *s2);
-double		ft_atof(const char *s);
+long double	ft_atold(const char *s);
 
 void		ft_init_stc(t_fract *stc, int ac, char **av);
 long double	ft_map(long double val, t_fract *stc, int axis);
@@ -74,6 +73,6 @@ t_complex	ft_cplx_div(t_complex n1, t_complex n2);
 t_complex	ft_cplx_square(t_complex n);
 t_complex	ft_cplx_cube(t_complex n);
 
-void	ft_close(t_fract *stc, int code);
+void		ft_close(t_fract *stc, int code);
 
 #endif

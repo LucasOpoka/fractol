@@ -6,7 +6,7 @@
 /*   By: lucas <lopoka@student.hive.fi>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:40:23 by lucas             #+#    #+#             */
-/*   Updated: 2024/06/05 22:44:06 by lopoka           ###   ########.fr       */
+/*   Updated: 2024/06/06 14:29:55 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -28,8 +28,8 @@ void	ft_validate_av(t_fract *stc, int ac, char **av)
 	if (ac == 4 && !ft_strcmp(av[1], "Julia"))
 	{
 		stc->func = &ft_julia;
-		stc->julia_cr = ft_atof(av[2]);
-		stc->julia_ci = ft_atof(av[3]);
+		stc->julia_cr = ft_atold(av[2]);
+		stc->julia_ci = ft_atold(av[3]);
 	}
 	else if (ac == 2 && !ft_strcmp(av[1], "Mandelbrot"))
 		stc->func = &ft_mandelbrot;
@@ -50,8 +50,8 @@ void	ft_init_stc(t_fract *stc, int ac, char **av)
 		ft_close(stc, 1);
 	stc->min_x = -2;
 	stc->max_x = 2;
-	stc->min_y = -2;
-	stc->max_y = 2;
+	stc->min_y = 2;
+	stc->max_y = -2;
 	stc->zoom = 1;
 	stc->precision = 100;
 	stc->rand_r = ft_rand();

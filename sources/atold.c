@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   atof.c                                             :+:      :+:    :+:   */
+/*   atold.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lopoka <lopoka@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 16:02:39 by lopoka            #+#    #+#             */
-/*   Updated: 2024/06/05 16:15:52 by lopoka           ###   ########.fr       */
+/*   Updated: 2024/06/06 14:37:04 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/fractol.h"
@@ -50,25 +50,30 @@ static inline int	ft_atoi(const char *str)
 	return ((int)(res * sign));
 }
 
-double	ft_atof(const char *s)
+long double	ft_atold(const char *s)
 {
-	char	*str;
-	double	int_part;
-	double	float_part;
-	int		i;
+	char		*str;
+	long double	int_part;
+	long double	float_part;
+	int			i;
+	int			sign;
 
+	sign = 1;
 	str = (char *) s;
-	int_part = (double) ft_atoi(str);
+	while (*str == ' ' || (*str >= '\t' && *str <= '\r'))
+		str++;
+	if (*str == '-')
+		sign *= -1;
+	if (*str == '+' || *str == '-')
+		str++;
+	int_part = (long double)ft_atoi(str);
 	while (*str && *str != '.')
 		str++;
 	if (*str == '.')
 		str++;
-	float_part = (double)ft_atoi(str);
+	float_part = (long double)ft_atoi(str);
 	i = ft_strlen(str);
 	while (i--)
 		float_part /= 10;
-	if (int_part >= 0)
-		return (int_part + float_part);
-	else
-		return (int_part - float_part);
+	return (sign * (int_part + float_part));
 }
