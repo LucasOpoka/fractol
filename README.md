@@ -16,3 +16,44 @@
     <td align="center">Bow</td>
   </tr>
 </table>
+
+<br />
+
+# Quickstart guide for Debian like Linux systems
+
+<br />
+
+## Install dependencies
+```bash
+sudo apt update
+sudo apt install cmake make build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
+```
+
+## Clone MLX42 repository
+```bash
+git clone https://github.com/codam-coding-college/MLX42.git
+```
+
+## Build MLX42
+```bash
+cd MLX42
+cmake -B build
+cmake --build build -j4
+cd ..
+```
+
+## Clone fractol repository
+```bash
+git clone https://github.com/LucasOpoka/fractol.git
+```
+
+## Build fractol
+```bash
+cd fractol
+make
+```
+
+## Test run
+```bash
+./fractol Mandelbrot
+```
