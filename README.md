@@ -19,14 +19,12 @@
 
 <br />
 
-# Quickstart guide for Debian like Linux systems
-
-<br />
+# Quickstart guide for Linux (Debian Like)
 
 ## Install dependencies
 ```bash
 sudo apt update
-sudo apt install cmake make build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
+sudo apt install git cmake make build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
 ```
 
 ## Clone MLX42 repository
